@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件</title>
+</head>
+<body>
+  <input type="text" id="txt" value="hahah">
+  <script>
+    console.log(window.onmousewheel)
+    console.log(window.DOMMouseScroll)
+    txt.select()
+    document.oncontextmenu = function(ev){
+      console.log(ev)
+    }
+    document.onclick = function(){
+      console.log(1)
+    }
+    window.onmousewheel = function(ev){
+      console.log(ev.wheelDelta)
+    }
+   
+    window.addEventListener('DOMMouseScroll',(ev) => {
+      console.log(ev)
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #box{
+      height: 150px;
+    }
+    #box1{
+      width: 100px;
+      height: 100px;
+      background: rebeccapurple;
+      position: relative;
+    }
+    #box2{
+      width: 100px;
+      height: 100px;
+      border: solid 2px red;
+      padding: 10px;
+      position: absolute;
+      top: 100px;
+      left: 100px;
+    }
+    #box3,#box4{
+      width: 200px;
+      height: 200px;
+      border: solid #000 3px;
+      padding: 20px;
+    }
+
+    #bubble{
+      width: 400px;
+      height: 400px;
+      border: solid 1px #000;
+    }
+    #bubble1{
+      width: 300px;
+      height: 300px;
+      border: solid 1px #000;
+    }
+    #bubble2{
+      width: 200px;
+      height: 200px;
+      border: solid 1px #000;
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- <input type="" name="" value="" id="btn"> -->
+  <div id="box" style="width: 100px;height: 100px;background: red;border: 1px solid #000;">box</div>
+  <div id="box1">box1</div>
+  <div id="box2" style="width: 150px;">box2</div>
+  <div id="box3">box3</div>
+  <div id="box4">box4</div>
+
+  <div id="bubble">
+    <div id="bubble1">
+      <div id="bubble2">
+        <button id="bubble3">bubble</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // btn.oninput = function(ev){
+    //   // ev.preventDefault()
+    //   return false
+    // }
+    console.log(getComputedStyle(box).height) // 获取到的是最终生效的属性，是带单位的字符串
+    console.log(getComputedStyle(box1).width)
+    console.log(box.style.width) // 带单位的字符串,只能获取到行内的样式
+    console.log(box1.style.width) // 如果行内没有样式，是获取不到东西的
+
+    console.log(box2.offsetWidth) // 获取到的是不带单位的数字，会把padding和border算进去
+    console.log(box2.offsetHeight) // 
+    console.log(box2.offsetParent)
+    console.log(box2.offsetTop)
+    console.log(box2.offsetLeft)
+
+
+
+    console.log(box3.clientWidth) // 获取到的不带单位的数字，会把padding算进去，不会算border
+    console.log(box3.clientHeight)
+    console.log(box3.clientLeft)
+    console.log(box3.clientTop)
+
+
+    console.log(document.documentElement.scrollTop)
+    console.log(document.documentElement.scrollLeft)
+
+    console.log(box4.getBoundingClientRect()) // 获取的是相对位置
+
+
+    document.onclick = function(ev){
+      console.log(ev.pageY) // 鼠标相对于页面的位置
+      console.log(ev.pageX)
+
+      console.log(ev.clientY) // 鼠标相对于可视区域的位置
+      console.log(ev.clientX)
+      
+    }
+
+    bubble.onclick = function(ev){
+      alert('bubble')
+    }
+    bubble1.onclick = function(){
+      alert('bubble1')
+    }
+    bubble2.onclick = function(){
+      alert('bubble2')
+    }
+    bubble3.onclick = function(ev){
+      alert('bubble3')
+      // ev.cancelBubble = true
+      ev.stopPropagation()
+    }
+    // onscroll滚动条事件，当有滚动条的时候滚动滚轮才会触发
+    document.onscroll = function(){
+      console.log(document.documentElement.scrollTop)
+      
+    }
+    window.onscroll = function(){
+      console.log(this.pageYOffset)
+    }
+    window.onmousewheel = function(ev){
+      // console.log(this.pageYOffset)
+      console.log(ev.wheelDelta)
+    }
+    
+  </script>
+</body>
+</html>

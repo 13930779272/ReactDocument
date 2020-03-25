@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body,
+			ul,
+			li {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="baidu.css" />
+	</head>
+
+	<body>
+		<div class="wrap">
+			<div class="baidu">
+				<ul id="list">
+					<li>
+						<div></div>
+						<span>泡沫</span>
+						<span>邓紫棋</span>
+					</li>
+					<li>
+						<div></div>
+						<span>说爱你</span>
+						<span>蔡依林</span>
+					</li>
+					<li>
+						<div></div>
+						<span>稻香</span>
+						<span>周杰伦</span>
+					</li>
+					<li>
+						<div></div>
+						<span>我的梦</span>
+						<span>张靓颖</span>
+					</li>
+					<li>
+						<div></div>
+						<span>怎么说我不爱你</span>
+						<span>萧敬腾</span>
+					</li>
+					<li>
+						<div>️</div>
+						<span>无处安放</span>
+						<span>白若溪</span>
+					</li>
+				</ul>
+				<div class="select">
+					<span class="selectAll"><span>全选</span></span>
+					<div class="others">
+						<span><em></em>收藏</span>
+						<span><em></em>添加</span>
+						<span><em></em>删除</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			(function() {
+				var lis = document.querySelectorAll('#list li'),
+					sele = document.querySelectorAll('#list div'),
+					seleAll = document.querySelector('.select span'),
+					_html = seleAll.innerHTML;
+
+				for(var i = 0, len = lis.length; i < len; i++) {
+					lis[i].style.background = i % 2 == 1 ? 'rgba(225,86,113,.3)' : '';
+					lis[i].color = i % 2 == 1 ? 'rgba(225,86,113,.3)' : '';
+					lis[i].index = i;
+					sele[i].flag = false;
+					lis[i].onmouseover = function() {
+						if(!sele[this.index].flag) {
+							this.style.background = 'rgba(225,86,113,.8)';
+							this.style.color = '#fff';
+						}
+					};
+					lis[i].onmouseout = function() {
+						if(!sele[this.index].flag) {
+							this.style.background = this.color;
+							this.style.color = '';
+						}
+					};
+					lis[i].onclick = function() {
+						if(sele[this.index].flag) {
+							sele[this.index].innerHTML = '️';
+						} else {
+							sele[this.index].innerHTML = '✔️';
+						}
+						sele[this.index].flag = !sele[this.index].flag;
+
+						var flag = true;
+						for(var i = 0; i < len; i++) {
+							if(!sele[i].flag) {
+								flag = false;
+							}
+						}
+						seleAll.innerHTML = flag ? '✔️' + seleAll.innerHTML : _html;
+						seleAll.flag = flag ? true : false;
+					};
+				}
+				seleAll.flag = false;
+				seleAll.onclick = function() {
+					if(this.flag) {
+						seleAll.innerHTML = _html;
+						for(var i = 0; i < len; i++) {
+							sele[i].innerHTML = '️';
+							sele[i].flag = false;
+							lis[i].style.background = lis[i].color;
+							lis[i].style.color = '';
+						}
+					} else {
+						for(var i = 0; i < len; i++) {
+							sele[i].innerHTML = '✔️';
+							sele[i].flag = true;
+							lis[i].style.background = 'rgba(225,86,113,.8)';
+							lis[i].style.color = '#fff';
+						}
+						seleAll.innerHTML = '✔️' + seleAll.innerHTML;
+					}
+
+					this.flag = !this.flag;
+				}
+			})()
+		</script>
+	</body>
+
+</html>

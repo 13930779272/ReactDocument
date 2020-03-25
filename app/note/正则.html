@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>正则</title>
+</head>
+
+<body>
+  <script>
+    // let str = 'bcdabcdaaacxcaa'
+    // let aa = 'a'
+    // console.log(new RegExp(aa).exec(str)) // 正则身上的方法，查看变量aa在字符串str首次出现的位置，返回值是一个数组
+    // console.log(new RegExp(aa).test(str)) // 查看是否存在
+
+    // let str1 = '1123sd4534vnx3453vcxv88'
+    // let re = new RegExp('\\d+','g')
+    // console.log(re)
+    // console.log(str1.match(re)) //  ["1123", "4534", "3453", "88"]
+
+    // let ary = ['哈哈','呵呵','啦啦','嘿嘿']
+    // let re1 = new RegExp(ary.join('|'),'g')
+    // let str2 = '哈哈呵呵'
+    // str2.replace(re1,($0) => {
+    //   console.log($0)
+    // })
+
+    // let obj = {
+    //   name: '小明',
+    //   age: 18,
+    //   say: '好好学习，天天向上'
+    // }
+    // let str = '我的名字叫${name},年龄是${age}岁,我想说:${say}';
+
+    // let s = str.replace(/\${(\w+)}/g,(...arg) => {
+    //   // console.log(arg)
+    //   let [,key] = arg
+    //   console.log(key)
+    //   return obj[key]
+    // })
+    // console.log(s)
+
+    
+    let str1 = '20%25%34%40%50px60px70px30px';
+    // 先行断言,/x(?=y)/ 匹配前边是y的x数据
+    let s = str1.match(/\d+(?=%)/g) // ["20", "25", "34", "40"]
+    // 先行否定断言，/x(?!y)/ 匹配前边不是y的x数据
+    let s1 = str1.match(/\d{2}(?!%)/g) // ["50", "60", "70", "30"]
+    // 后行断言，/(?<=x)y/ 匹配后边是x的y数据
+    let s2 = str1.match(/(?<=%)\d{2}/g) // ["25", "34", "40", "50"]
+    // 后行否定断言 /(?<!x)y/ 匹配后边不是x的y数据
+    let s3 = str1.match(/(?<!%)\d{2}/g) // ["20", "60", "70", "30"]
+    console.log(s3)
+   
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>redux</title>
+</head>
+
+<body>
+  <div id="app">
+    <button id="btn">加加</button>
+    <button id="btn1">减减</button>
+    <div id="num"></div>
+  </div>
+  <script src="./node_modules/redux/dist/redux.min.js"></script>
+  <script>
+    // 为了防止重名所以要存一个唯一值
+    const INCREMENT = 'INCREMENT'
+    const DECREMENT = 'DECREMENT'
+    // 1.引包
+    const {createStore} = Redux
+    console.log(Redux)
+
+    // 2.创建store通过createStore()创建
+    const store = createStore(reducer)
+
+    // 3.创建reducer(数据，修改数据的方法这些方法叫action)
+    function reducer(state={num:1},action){
+
+      //需要添加一个修改数据的action，increment(增加) decrement(减少)
+      //increment(state){state.num += 1}
+
+      //*** 在action中返回的对象一定要是一个新地址的对象，不要直接操作state
+      /* 
+        这种方式有可能会遇到坑，因为这2种方式都是潜拷贝
+
+        let newstate = {num:++ state.num}
+        //newstate.num = ++ state.num;
+        return {...state,newstate}
+
+        let newstate = Object.assgin({},state);  
+        newstate.num = ++ state.num;
+        return newstate;
+
+      */
+          
+      // console.log(state)
+      switch(action.type){
+        case INCREMENT:
+          return {...state,num: ++state.num}
+        case DECREMENT:
+          return {...state,num: --state.num}
+      }
+      return state
+    }
+
+    // console.log(store.getState())
+    function render(){
+      console
+      num.innerHTML = store.getState().num
+    }
+    render()
+
+    btn.onclick = function(){
+      store.dispatch({type:INCREMENT})
+      // console.log(store.getState().num)
+    }
+
+    btn1.onclick = function(){
+      store.dispatch({type:DECREMENT})
+      // console.log(store.getState().num)
+    }
+    /*
+      subscribe(监听数据变化)只要reducer的state发生了变化，那么就会触发subscribe中的回调函数
+    */
+    store.subscribe(() => {
+      render()
+    })
+
+  </script>
+</body>
+
+</html>
