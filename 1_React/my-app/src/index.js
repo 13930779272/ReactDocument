@@ -1,65 +1,127 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
+// import ReactDOM from 'react-dom' // 引入DOM是要用render函数，
+import ReactDOM,{render} from 'react-dom' // 我们可以直接结构出来
 
-// import App from './components/App';
-// import Home from './components/Home'
-
-/*
- * JSX语法：javascript xml（html）
- * =>虚拟DOM
+console.log(render) // 是一个函数
+console.log(React) // 是一个对象
+/* 
+ * 虚拟DOM（jsx）到真实DOM的渲染过程：
+ *  1.基于BABEL-PRESET-REACT-APP(https://www.babeljs.cn/repl)语法解析包解析为CREATE-ELEMENT格式
+ *    =>每当遇见一个元素标签都会进行 React.createElement() 处理
+ *    =>React.createElement([标签名],[props|null],...) 从第三个参数开始就是子节点的处理 文本节点直接转化为UNIcode格式，元素节点继续createElement()处理
  * 
- * 1.每一个组件的视图只能有一个根元素节点
- * 	  ReactDOM.render([JSX],[CONTAINER],[CALLBACK])
- * 	  =>[CONTAINER]不建议是HTML或者BODY，指定一个元素容器#ROOT
- * 	  =>[CALLBACK]把虚拟DOM渲染到浏览页面中后触发的回调函数
- * 2.JSX语法中基于{}绑定动态数据值或者JS表达式
- * 	  =>null和undefined代表空元素
- *    =>在括号中不能直接使用对象或者函数（引用数据类型值不是合法JSX元素，除数组之外，数组里有引用类型也不行，把数组变为字符串）
- * 3.给JSX元素设置样式
- *    =>设置样式类使用的是className
- *    =>设置行内样式STYLE不能是字符串，必须是一个对象 style={{xxx:xxx}}
- * 4.大括号中如果是JS表达式，可以返回有效的数据值或者返回一个新的JSX元素
+ *  2.执行createElement()（执行顺序肯定是先把最里层的CREATE-ELEMENT执行，执行完依次执行外层的CREATE-ELEMENT...）
+ *    =>返回一个对象{
+ * 		 key:null,
+ * 		 ref:null,
+ * 		 type:标签名/组件，
+ * 		 props:{
+ * 			 xxx:xxx, //=>给元素标签上设置的属性（REF/KEY除外）
+ * 			 //=>没有子节点则没有children选项，有子节点才有children，只有一个字节点它的值是单个值，如果有多个子节点，它的值是一个数组
+ * 			 children:单个值(字符串/对象) 或者 数组
+ * 		 }
+ *   }
+ *
+ *  3.基于REACT-DOM.RENDER把生成的对象变为真实的DOM，最后渲染到浏览器页面的指定容器中
  */
-let name = '哈哈',
-    ft = {
-      fontSize:"50px"
-    },
-    num = 1,
-    data = [
+// 一、解析
+// render(
+//   <div>
+//     哈哈哈哈
+//   </div>,
+//   document.getElementById('root'))
+/* 
+  React.createElement("div", null, "\u54C8\u54C8\u54C8\u54C8");
+*/
+
+// render(
+//   <div className="box" index="1" id="1">
+//     哈哈哈哈
+//   </div>,
+//   document.getElementById('root'))
+/* 
+  React.createElement("div", {
+    className: "box",
+    index: "1",
+    id: "1"
+  }, "\u54C8\u54C8\u54C8\u54C8");
+
+*/
+
+render(
+  <div>
+    <div className="box" index="1">
+      哈哈哈
+      <span>
+        <i>hah</i>
+        啊哈哈哈
+      </span>
+    </div>
+    <div>
+      哈哈
+    </div>
+  </div>,
+  document.getElementById('root'))
+
+/* 
+  React.createElement(
+    "div", 
+    null, 
+    React.createElement(
+      "div", 
       {
-        id:1,
-        name:'小明'
-      },
-      {
-        id:2,
-        name:'小李'
-      }
-    ];
-ReactDOM.render(
-<div className="box" style={{color:'red',...ft}}>
-  {/* 这是注释 */}
-  <div>{name}</div>
-  {num === 0?'男':'女'}
-  {num === 0?<p>我是男的</p>:null}
-  <ul>
-    {data.map(item => {
-      return (
-        /* JSX要求循环绑定的元素都要设置一个属性KEY，存储的值是当前循环中的唯一值（KEY是DOM DIFF时候的重要凭证，KEY值一般不要设置为循环的索引，而是设置为某一个具体不变的值） 
-         */
-        <li key={item.id}>
-          <span>{item.id}</span>
-          <span>{item.name}</span>
-        </li>
+        className: "box"
+      }, 
+      "\u54C8\u54C8\u54C8", 
+      React.createElement(
+        "span", 
+        null, 
+        React.createElement(
+          "i", 
+          null, 
+          "hah"
+        ), 
+        "\u554A\u54C8\u54C8\u54C8"
       )
-    })}
-  </ul>
-</div>, document.getElementById('root'));
-// ReactDOM.render(<Home />,document.getElementById('root'))
-
-
-
-/* ReactDOM.render(<div id="box">
-	你好世界
-</div>, document.getElementById('root'), _ => {
-	console.log(document.getElementById('box'));
-}); */
+    ), 
+    React.createElement(
+      "div", 
+      null, 
+      "\u54C8\u54C8"
+    )
+  ); 
+*/
+// 二、执行React.createElement()
+console.log(React.createElement("div", null, "\u54C8\u54C8\u54C8\u54C8")) // 返回值是一个对象
+/* 
+  {
+    $$typeof: Symbol(react.element)
+    type: "div"
+    key: null
+    ref: null
+    props: {children: "哈哈哈哈"}
+    _owner: null
+    _store: {validated: false}
+    _self: null
+    _source: null
+    __proto__: Object
+  }
+*/
+console.log( React.createElement(
+  "div", 
+  {
+    className: "box",
+    index:1
+  }, 
+  "\u54C8\u54C8\u54C8", 
+  React.createElement(
+    "span", 
+    null, 
+    // React.createElement(
+    //   "i", 
+    //   null, 
+    //   "hah"
+    // ), 
+    "\u554A\u54C8\u54C8\u54C8"
+  )
+), )
