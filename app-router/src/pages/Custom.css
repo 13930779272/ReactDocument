@@ -1,0 +1,6 @@
+.NavBox a {
+  color: #000;
+}
+.NavBox a.active button {
+  color: red;
+}

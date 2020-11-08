@@ -58,7 +58,7 @@ class App extends React.Component {
       </div>
     );
   }
-  //=>5. 第一次渲染完成，只要组件不销毁5（包括5）之前的只执行一次
+  //=>5. 第一次渲染完成，只要组件不销毁5（包括5）之前的(react)只执行一次
   componentDidMount(){
     console.log('=====>componentDidMount')
   }

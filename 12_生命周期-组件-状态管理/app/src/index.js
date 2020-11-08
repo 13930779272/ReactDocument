@@ -12,7 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     // 在这可以拿到默认的数据说明constructor之前就执行了属性的校验和处理
-    console.log(props,'=====>constructor')
+    console.log('=====>constructor',props)
     this.state = {
       num:1
     }
@@ -34,15 +34,20 @@ class App extends React.Component {
           //   num: ++this.state.num
           // })
 
-          // let n = this.state.num
-          // console.log(n) // 状态值被修改了
-          // this.setState({num:++n})
+
+          /* 
+           * 当需要用到shouldComponentUpdate这个钩子判断是否渲染的时候，要给新数据赋值一个新地址才能拿到新的数据和老的数据
+           * 如果要使用这个生命周期，在修改数据状态的时候，需要修改数据引用类型的地址
+           */
+          let n = this.state.num
+          console.log(n) // 状态值被修改了
+          this.setState({num:++n})
 
           /* 
            * this.forceUpdate()强制更新，不会触发shouldComponentUpdate这个钩子函数，视图总会更新
            */
-          this.state.num = ++ this.state.num
-          this.forceUpdate()
+          // this.state.num = ++ this.state.num
+          // this.forceUpdate()
 
         }}>{this.state.num}</div>
         {this.props.flag}

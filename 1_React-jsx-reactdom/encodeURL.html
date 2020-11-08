@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>encodeURI和encodeURIComponent</title>
+</head>
+<body>
+  <script>
+    let url = 'https://www.zhipin.com/web/geek/chat?ka=header-哈哈啊'
+    console.log(encodeURI(url)) // https://www.zhipin.com/web/geek/chat?ka=header-%E5%93%88%E5%93%88%E5%95%8A
+    console.log(encodeURIComponent(url)) // https%3A%2F%2Fwww.zhipin.com%2Fweb%2Fgeek%2Fchat%3Fka%3Dheader-%E5%93%88%E5%93%88%E5%95%8A
+
+    console.log(decodeURI('https://www.zhipin.com/web/geek/chat?ka=header-%E5%93%88%E5%93%88%E5%95%8A'))
+    console.log(decodeURIComponent('https%3A%2F%2Fwww.zhipin.com%2Fweb%2Fgeek%2Fchat%3Fka%3Dheader-%E5%93%88%E5%93%88%E5%95%8A'))
+ 
+  </script>
+</body>
+</html>
